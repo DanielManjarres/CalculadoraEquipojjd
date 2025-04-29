@@ -16,6 +16,14 @@ public class Calculadora {
         return a * b;
     }
 
+    // Divide dos números enteros, manejando división por cero
+    public static double dividir(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("División por cero no permitida");
+        }
+        return (double) a / b;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("¡Calculadora del Equipo JJD!");
@@ -26,8 +34,9 @@ public class Calculadora {
             System.out.println("1. Suma");
             System.out.println("2. Resta");
             System.out.println("3. Multiplicación");
-            System.out.println("4. Salir");
-            System.out.print("Opción (1-4): ");
+            System.out.println("4. División");
+            System.out.println("5. Salir");
+            System.out.print("Opción (1-5): ");
 
             int opcion;
             try {
@@ -38,13 +47,13 @@ public class Calculadora {
                 continue;
             }
 
-            if (opcion == 4) {
+            if (opcion == 5) {
                 System.out.println("¡Gracias por usar la calculadora!");
                 break;
             }
 
-            if (opcion < 1 || opcion > 3) {
-                System.out.println("Opción inválida. Seleccione 1, 2, 3 o 4.");
+            if (opcion < 1 || opcion > 4) {
+                System.out.println("Opción inválida. Seleccione 1, 2, 3, 4 o 5.");
                 continue;
             }
 
@@ -70,16 +79,21 @@ public class Calculadora {
             }
 
             // Ejecutar operación
-            if (opcion == 1) {
-                System.out.println("Resultado de la suma: " + sumar(num1, num2));
-            } else if (opcion == 2) {
-                System.out.println("Resultado de la resta: " + restar(num1, num2));
-            } else {
-                System.out.println("Resultado de la multiplicación: " + multiplicar(num1, num2));
+            try {
+                if (opcion == 1) {
+                    System.out.println("Resultado de la suma: " + sumar(num1, num2));
+                } else if (opcion == 2) {
+                    System.out.println("Resultado de la resta: " + restar(num1, num2));
+                } else if (opcion == 3) {
+                    System.out.println("Resultado de la multiplicación: " + multiplicar(num1, num2));
+                } else {
+                    System.out.println("Resultado de la división: " + dividir(num1, num2));
+                }
+            } catch (ArithmeticException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
 
         scanner.close();
     }
 }
-
